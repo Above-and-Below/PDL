@@ -43,7 +43,9 @@ label start:
     scene bg outside
     show detective normal at right
 
-    detective "{i}I am going into the building, stay calm...{/i}"
+    "(Deep Exhale)"
+
+    detective "{i}Ok. I am going into the building. Got to remember to stay calm...{/i}"
 
     show detective normal at Position(xpos=0.30, ypos=1.0, xanchor=0.5, yanchor=1.0)
     with moveinleft
