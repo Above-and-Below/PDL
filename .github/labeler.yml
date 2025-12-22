@@ -6,3 +6,6 @@ gitignore:
 
 Actions:
   - '.github/workflows/**'
+
+Audio:
+  - 'game/audio/**'
