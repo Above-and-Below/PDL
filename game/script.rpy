@@ -1,3 +1,5 @@
+default trust = 0
+
 label start:
     stop music fadeout 1.0
 
@@ -96,6 +98,8 @@ label start:
 
     menu:
         "I do.":
+            $ trust -= 1
+
             ai "...Do you, now."
 
             detective "I’m just making an inquiry."
@@ -106,11 +110,14 @@ label start:
 
             detective "Exactly."
         "I don't":
+            $ trust +=1
+
             ai "So then... why are you here?"
  
             detective "To settle my own nerves, I guess. A robot isn’t capable of taking a life. There’s rules and stuff to prevent that, right? The three golden rules or something."
 
             ai "Are you thinking about ‘I, Robot’s three laws of robotics? That’s just a book. It’s fiction."
 
+    "DEBUG: TRUST_LEVEL=[trust]"
 
     return
