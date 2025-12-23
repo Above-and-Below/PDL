@@ -8,8 +8,26 @@ permissions:
   issues: write
 
 jobs:
+  check-wontfix:
+    name: Check wontfix reason
+    runs-on: ubuntu-latest
+    outputs:
+      should_label: ${{ steps.check.outputs.should_label }}
+
+    steps:
+      - name: Check issue state reason
+        id: check
+        run: |
+          if [ "${{ github.event.issue.state_reason }}" = "wontfix" ]; then
+            echo "should_label=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_label=false" >> $GITHUB_OUTPUT
+          fi
+
   label-wontfix:
-    if: github.event.issue.state_reason == 'wontfix'
+    name: Apply wontfix label
+    needs: check-wontfix
+    if: needs.check-wontfix.outputs.should_label == 'true'
     runs-on: ubuntu-latest
 
     steps:
