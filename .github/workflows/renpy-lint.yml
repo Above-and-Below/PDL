@@ -1,4 +1,4 @@
-name: Ren'Py Linter
+name: RenPy Lint Pipeline
 
 on:
   push:
@@ -11,57 +11,84 @@ on:
 
 jobs:
   setup-python:
-    name: 🐍 Set up Python
+    name: Setup Python Environment
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Install Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
   fetch-renpy:
-    name: 📥 Fetch Ren'Py
+    name: Download RenPy SDK
     runs-on: ubuntu-latest
     needs: setup-python
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Download Ren'Py SDK
+      - name: Download RenPy SDK
         run: |
           wget https://www.renpy.org/dl/8.2.1/renpy-8.2.1-sdk.tar.bz2
 
+      - name: Upload RenPy SDK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: renpy-sdk
+          path: renpy-8.2.1-sdk.tar.bz2
+
   unzip-renpy:
-    name: 📦 Unzip Ren'Py
+    name: Extract RenPy SDK
     runs-on: ubuntu-latest
     needs: fetch-renpy
     steps:
-      - uses: actions/checkout@v4
+      - name: Download SDK Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: renpy-sdk
 
       - name: Extract SDK
         run: |
           tar -xjf renpy-8.2.1-sdk.tar.bz2
 
+      - name: Upload Extracted SDK Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: renpy-sdk-extracted
+          path: renpy-8.2.1-sdk
+
   renpy-lint:
-    name: 🔍 Run Ren'Py Lint
+    name: Run RenPy Lint
     runs-on: ubuntu-latest
     needs: unzip-renpy
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Lint scripts
+      - name: Download Extracted SDK Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: renpy-sdk-extracted
+
+      - name: Execute Lint
         run: |
           cd renpy-8.2.1-sdk
           ./renpy.sh $GITHUB_WORKSPACE lint
 
-  rpy-fast-scan:
-    name: ⚡ Fast .rpy Scan
+  fast-rpy-scan:
+    name: Fast Syntax Scan
     runs-on: ubuntu-latest
     needs: unzip-renpy
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Basic syntax sanity check
+      - name: Download Extracted SDK Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: renpy-sdk-extracted
+
+      - name: Quick Syntax Check
         run: |
           echo "Scanning .rpy files..."
           for file in $(find . -name "*.rpy"); do
