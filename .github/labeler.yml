@@ -1,0 +1,11 @@
+Core Files:
+  - '**/*.rpy'
+
+gitignore:
+  - '.gitignore'
+
+Actions:
+  - '.github/workflows/**'
+
+Audio:
+  - 'game/audio/**'

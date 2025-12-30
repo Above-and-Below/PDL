@@ -1,4 +1,4 @@
-image logo = "images/logo.png" # TODO: Replace with actual logo image
+image logo = "images/logo.png"
 
 label splashscreen:
     scene black
@@ -12,7 +12,7 @@ label splashscreen:
     # Unskippable pause
     $ renpy.pause(4.0, hard=True)
 
-    # Hide the logo properly
+    # Hide the logo
     hide logo
     with fade
 
