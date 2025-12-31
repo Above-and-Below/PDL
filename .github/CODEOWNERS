@@ -1,0 +1,19 @@
+# ============================================
+# PDL — CODEOWNERS
+# Above & Below Studios
+# ============================================
+
+# Default owner (fallback for everything)
+* @Above-and-Below/software-developers
+
+# ----------------------------
+# Assets
+# ----------------------------
+/game/images/  @Above-and-Below/art
+/game/audio/   @Above-and-Below/music
+
+# ----------------------------
+# GitHub meta
+# ----------------------------
+/.github/           @Above-and-Below/software-developers
+
