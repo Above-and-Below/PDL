@@ -112,7 +112,7 @@ label start:
 
             detective "Exactly."
         "I don't":
-            $ trust +=1
+            $ trust += 1
 
             ai "So then... why are you here?"
  
