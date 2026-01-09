@@ -1,4 +1,8 @@
 # PDL
+
+# [![SoundCloud](https://img.shields.io/badge/soundcloud-FF5500?style=for-the-badge&logo=soundcloud&logoColor=white)](https://soundcloud.com/above-and-below-studios/sets/pdl-original-soundtrack)
+
+
 A game about a detective, an AI, and what it means to be human.
 
 ### 🧠 About
